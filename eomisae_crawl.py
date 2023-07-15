@@ -31,10 +31,13 @@ while True:
         if product['url'] not in sent_list:
             # If the number of hearts exceeds 3 or the number of comments exceeds 5
             if product['heart'] > 3 or product['comment'] > 5:
-                # Send a message with the product information
-                bot.send_message(chat_id='1905923211', text=str(product['title']+'\n' + product['url']))
-                # Add the product to the sent list
+                try:
+                    bot.send_message(chat_id='1905923211', text=str(product['title'] + '\n' + product['url']))
+                except Exception as e:
+                    print(f"Error sending message: {e}")
+
                 sent_list.append(product['url'])
+                print(product['title'])
 
     # Refresh the page and update the list of products every minute
     sleep(60)
@@ -46,4 +49,3 @@ while True:
     if counter == 1440:
         sent_list = []
         counter = 0
-
